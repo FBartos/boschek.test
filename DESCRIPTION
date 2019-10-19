@@ -1,11 +1,19 @@
 Package: boschek.test
-Title: What the Package Does (one line, title case)
-Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
-Depends: R (>= 3.5.3)
-License: What license is it under?
+Type: Package
+Title: Add Title
+Version: 0.1.0
+Author: c(
+    person("František", "Bartoš",  email = "f.bartos96@gmail.com",   role = c("aut", "cre")),
+    person("Peter",     "Boschek", email = "boschek@centrum.cz",     role = c("aut")),
+    person("Marek A.",  "Vranka",  email = "vranka.marek@gmail.com", role = c("aut")))
+Maintainer: František Bartoš <f.bartos96@gmail.com>
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+License: GPL-3
+Depends: R (>= 3.5.0)
 Encoding: UTF-8
 LazyData: true
 Imports: 
-    nleqslv
+    nleqslv,
+    stats
+RoxygenNote: 6.1.1

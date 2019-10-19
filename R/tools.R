@@ -1,7 +1,7 @@
-solve_T <- function(x, N_flatt, combinations, Q, NK, NR){
+.solve_T <- function(x, N_flatt, combinations, Q, NK, NR){
   y <- rep(0,length =  NK-1)
   
-  P <- solve_P(x = x, combinations = combinations, Q = Q, NK = NK, NR = NR)
+  P <- .solve_P(x = x, combinations = combinations, Q = Q, NK = NK, NR = NR)
   
   for(k in 1:(NK-1)){
     y[k] <- sum(sapply(1:nrow(combinations),function(c){
@@ -12,7 +12,7 @@ solve_T <- function(x, N_flatt, combinations, Q, NK, NR){
   }
   y
 }
-solve_P <- function(x, combinations, Q, NK, NR){
+.solve_P <- function(x, combinations, Q, NK, NR){
   P <- NULL
   for(i in 1:nrow(combinations)){
     comb <- combinations[i,]
@@ -25,7 +25,7 @@ solve_P <- function(x, combinations, Q, NK, NR){
   }
   return(P)
 }
-solve_TQ <- function(x, N_flattB, NR){
+.solve_TQ <- function(x, N_flattB, NR){
   y <- numeric(2)
   
   A <- NULL
@@ -47,6 +47,6 @@ solve_TQ <- function(x, N_flattB, NR){
   
   return(y)
 }
-compute_SE <- function(t, Q, N){
+.compute_SE <- function(t, Q, N){
   se <- ((4*N*(Q-t))/(t-2*t*Q+Q^2) + (2*N*(1-2*Q)^2)/(Q-Q^2) + (4*N*(Q+t+1)^2)/((1-Q)^2-t+2*t*Q))^(-1/2)
 }
