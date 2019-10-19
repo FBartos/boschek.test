@@ -11,9 +11,7 @@
 #' of categories is 2.
 #'
 #'
-#' @examples  
-#' ### 2 raters, 2 categories and data in long format
-#' library(boschek.test)
+#' @examples ### 2 raters, 2 categories and data in long format
 #' # load data1
 #' data(d1)
 #' 
@@ -40,7 +38,7 @@
 #' m1$model_A$table
 #' m1$model_B$table
 #' 
-#' 
+#' ### ------------------------------------------------- ###
 #' ### 3 raters, 3 categories and data in long format
 #' # load data1
 #' data(d2)
