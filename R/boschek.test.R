@@ -1,14 +1,17 @@
 #' Boschek's test of reliability
-#' @description Implementation of the Boschek's test of reliability as described in "Pape name".
-#' @references Boschek, P., Vranka, M. A., Bartoš, F., Name of the Paper, 2019
+#' @description Implementation of the Boschek's test of reliability as described in 
+#' "A Probabilistic “True-error” Model for the Reliability Analysis of Nominal Classifications".
+#' @references Boschek, P., Vranka, M. A., Bartoš, F., A Probabilistic “True-error” Model
+#' for the Reliability Analysis of Nominal Classifications (manuscript under preparation)
 #' @import nleqslv
-#' @param data A matrix or a dataframe containing observations. 
-#' It can be either in long format - with columns corresponding to a raters and rows to subjects rated, or,
-#' in an aggregated manner, with one column labeled "frequency" containing counts of combinations of ratings 
-#' which are specified in remaining columns. 
-#' @param Q Classification matrix against which are the data tested.
-#' @param exact_prob Whether the exact probability estimates should be computed. Only possible when number
-#' of categories is 2.
+#' @param data A matrix or data frame containing observations.  Either in long format - with
+#' columns corresponding to raters and rows to subjects rated; or in an aggregated manner - with
+#' one column labeled "frequency" containing counts of combinations of ratings which are
+#' specified in remaining columns. See Examples for more information.
+#' @param C A matrix containing the acceptable probabilities of an incorrect (or correct) classification 
+#' that specifies the null hypothesis.
+#' @param exact_prob Whether the exact probability estimates should be computed. Only possible
+#' when the number of categories is 2.
 #'
 #'
 #' @examples ### 2 raters, 2 categories and data in long format
@@ -16,11 +19,11 @@
 #' data(d1)
 #' 
 #' # create classification matrix
-#' Q1 <- matrix(c(.9, .1,
+#' C1 <- matrix(c(.9, .1,
 #'                .1, .9),byrow = TRUE, nrow = 2, ncol = 2)
 #'                
 #' # fit the model
-#' m1 <- boschek.test(data = d1,Q = Q1)
+#' m1 <- boschek.test(data = d1,C = C1)
 #' 
 #' # quickly inspect the model
 #' m1
@@ -47,16 +50,17 @@
 #' head(d2)
 #' 
 #' # create classification matrix
-#' Q2 <- matrix(c(0.85,  0.1, 0.05,
+#' C2 <- matrix(c(0.85,  0.1, 0.05,
 #'                0.1 ,  0.8, 0.1 ,
 #'                0.05,  0.1, 0.85 ),byrow = TRUE, nrow = 3, ncol = 3)
 #' 
 #' # fit the model
-#' m2 <- boschek.test(data = d2,Q = Q2)
+#' m2 <- boschek.test(data = d2,C = C2)
 #' 
 # check input
 #' @export boschek.test
-boschek.test <- function(data, Q, exact_prob = TRUE){
+boschek.test <- function(data, C, exact_prob = TRUE){
+  Q <- C
   
   call <- match.call()
   
@@ -120,7 +124,7 @@ boschek.test <- function(data, Q, exact_prob = TRUE){
                                                   "expected_frequency" = sum(N_flatt[temp_c,"expected_frequency"])))
     
     # test of symetry
-    if(!grepl(NK, com)){
+    if(!grepl(NR, com)){
       symetry_chisq <- c(symetry_chisq,(N_flatt[temp_c,"frequency"]-mean(N_flatt[temp_c,"frequency"]))^2/mean(N_flatt[temp_c,"frequency"]))
     }
   }
@@ -245,7 +249,7 @@ print.boschek.test         <- function(x){
   cat("\nModel fit:\n")
   cat(print_model_fit_A)
   
-  cat("\nModel fit assuming symetry:\n")
+  cat("\nModel fit assuming symmetry:\n")
   cat(print_model_fit_B)
   
   if(x$data_description$number_of_categories == 2 & x$exact_prob){
@@ -336,7 +340,7 @@ residuals.boschek.test     <- function(x, print.all = F){
   
   cat("\n")
   
-  cat("Model data matrix assuming symetry:\n")
+  cat("Model data matrix assuming symmetry:\n")
   print(table_B)
   cat(print_data_summary_add_B)
 }
